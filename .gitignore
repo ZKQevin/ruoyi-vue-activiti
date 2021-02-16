@@ -39,8 +39,6 @@ nbdist/
 *.xml.versionsBackup
 *.swp
 
-application-prod.yml
-application-prod2.yml
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml

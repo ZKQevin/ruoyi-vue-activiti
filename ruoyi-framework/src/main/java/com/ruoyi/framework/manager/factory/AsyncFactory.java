@@ -1,6 +1,12 @@
 package com.ruoyi.framework.manager.factory;
 
 import java.util.TimerTask;
+
+import com.ruoyi.common.utils.SnowflakeId;
+import com.ruoyi.domain.mo.SysLogininforMo;
+import com.ruoyi.domain.mo.SysOperLogMo;
+import com.ruoyi.framework.service.ISysLogininforService;
+import com.ruoyi.framework.service.ISysOperLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.ruoyi.common.constant.Constants;
@@ -9,11 +15,10 @@ import com.ruoyi.common.utils.ServletUtils;
 import com.ruoyi.common.utils.ip.AddressUtils;
 import com.ruoyi.common.utils.ip.IpUtils;
 import com.ruoyi.common.utils.spring.SpringUtils;
-import com.ruoyi.system.domain.SysLogininfor;
-import com.ruoyi.system.domain.SysOperLog;
-import com.ruoyi.system.service.ISysLogininforService;
-import com.ruoyi.system.service.ISysOperLogService;
+
+
 import eu.bitwalker.useragentutils.UserAgent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 异步工厂（产生任务用）
@@ -23,6 +28,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 public class AsyncFactory
 {
     private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");
+
 
     /**
      * 记录登录信息
@@ -57,7 +63,8 @@ public class AsyncFactory
                 // 获取客户端浏览器
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
-                SysLogininfor logininfor = new SysLogininfor();
+                SysLogininforMo logininfor = new SysLogininforMo();
+                logininfor.setInfoId(SnowflakeId.generateId());
                 logininfor.setUserName(username);
                 logininfor.setIpaddr(ip);
                 logininfor.setLoginLocation(address);
@@ -85,7 +92,7 @@ public class AsyncFactory
      * @param operLog 操作日志信息
      * @return 任务task
      */
-    public static TimerTask recordOper(final SysOperLog operLog)
+    public static TimerTask recordOper(final SysOperLogMo operLog)
     {
         return new TimerTask()
         {

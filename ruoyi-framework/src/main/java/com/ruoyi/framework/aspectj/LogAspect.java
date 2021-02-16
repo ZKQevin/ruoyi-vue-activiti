@@ -1,9 +1,13 @@
 package com.ruoyi.framework.aspectj;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.domain.mo.SysOperLogMo;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -28,7 +32,6 @@ import com.ruoyi.common.utils.spring.SpringUtils;
 import com.ruoyi.framework.manager.AsyncManager;
 import com.ruoyi.framework.manager.factory.AsyncFactory;
 import com.ruoyi.framework.web.service.TokenService;
-import com.ruoyi.system.domain.SysOperLog;
 
 /**
  * 操作日志记录处理
@@ -85,7 +88,7 @@ public class LogAspect
             LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
 
             // *========数据库日志=========*//
-            SysOperLog operLog = new SysOperLog();
+            SysOperLogMo operLog = new SysOperLogMo();
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
             String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
@@ -131,7 +134,7 @@ public class LogAspect
      * @param operLog 操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperLog operLog) throws Exception
+    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperLogMo operLog) throws Exception
     {
         // 设置action动作
         operLog.setBusinessType(log.businessType().ordinal());
@@ -153,7 +156,7 @@ public class LogAspect
      * @param operLog 操作日志
      * @throws Exception 异常
      */
-    private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception
+    private void setRequestValue(JoinPoint joinPoint, SysOperLogMo operLog) throws Exception
     {
         String requestMethod = operLog.getRequestMethod();
         if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod))
@@ -210,8 +213,31 @@ public class LogAspect
      * @param o 对象信息。
      * @return 如果是需要过滤的对象，则返回true；否则返回false。
      */
+    @SuppressWarnings("rawtypes")
     public boolean isFilterObject(final Object o)
     {
+        Class<?> clazz = o.getClass();
+        if (clazz.isArray())
+        {
+            return clazz.getComponentType().isAssignableFrom(MultipartFile.class);
+        }
+        else if (Collection.class.isAssignableFrom(clazz))
+        {
+            Collection collection = (Collection) o;
+            for (Iterator iter = collection.iterator(); iter.hasNext();)
+            {
+                return iter.next() instanceof MultipartFile;
+            }
+        }
+        else if (Map.class.isAssignableFrom(clazz))
+        {
+            Map map = (Map) o;
+            for (Iterator iter = map.entrySet().iterator(); iter.hasNext();)
+            {
+                Map.Entry entry = (Map.Entry) iter.next();
+                return entry.getValue() instanceof MultipartFile;
+            }
+        }
         return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse;
     }
 }

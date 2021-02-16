@@ -52,10 +52,7 @@ public class Constants
      */
     public static final String LOGIN_FAIL = "Error";
 
-    /**
-     * 验证码 redis key
-     */
-    public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
+
 
     /**
      * 登录用户 redis key
@@ -126,4 +123,8 @@ public class Constants
      * 资源映射路径 前缀
      */
     public static final String RESOURCE_PREFIX = "/profile";
+    /**
+     *设置通用验证码
+     */
+    public static final String GENERAL_CAPTCHA = "general_captcha:";
 }

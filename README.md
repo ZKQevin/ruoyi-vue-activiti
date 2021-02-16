@@ -1,96 +1,17 @@
 ## 平台简介
 
+若依是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+
 * 前端采用Vue、Element UI。
-* 后端采用Spring Boot、Spring Security、activiti、Redis & Jwt。
+* 后端采用Spring Boot、Spring Security、Redis & Jwt。
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持加载动态权限菜单，多方式轻松权限控制。
 * 高效率开发，使用代码生成器可以一键生成前后端代码。
-* 感谢[RuoYi-Vue](https://github.com/yangzongzhuan/RuoYi-Vue)。
-* 华为云优惠券：[点我进入](https://www.huaweicloud.com/product/ecs.html?fromacct=2b023ba5-33f5-478c-bbdf-33e27cd7459c&utm_source=V1g3MDY4NTY=&utm_medium=cps&utm_campaign=201905)
-* 阿里云优惠券：[点我进入](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=ek76b2lk)
-
-#### 部署文档与ruoyi-vue一致:https://doc.ruoyi.vip/ruoyi-vue/
-#### 部署文档与ruoyi-vue一致:https://doc.ruoyi.vip/ruoyi-vue/
-#### 部署文档与ruoyi-vue一致:https://doc.ruoyi.vip/ruoyi-vue/
-
-#### 重要的事情说三遍
->  参考资料👇
->
->  1. 若依框架: [http://www.ruoyi.vip](http://www.ruoyi.vip/)
->  2. 咖啡兔：[《Activiti 实战》](https://github.com/henryyan/activiti-in-action-codes)
-
-## 最新更新
-<p>随手 star ⭐是一种美德。 你们的star就是我的动力</p>
-
-v2.4
-
-由于使用自定义表单之后与页面绑定，在APP端与其他页面无法进行审批，失去了前后端分离的意义
-所以2.4版本回退到2.2版本
-后续更近会继续使用原先动态表单架构。
-春节期间代码改动会很大，谢谢大家的支持，提前祝大家新年快乐。
-
-
-v2.2
-1. 添加任务流程图展示
-2. 修改请请假流程默认排序
-3. 修改动态表单默认排序
-4. 修改动态表展示单审批人nick_name(之前是user_name)
-5. act_workflow_formdata表添加create_name字段
-
-近期任务：
-1. 优化动态表单页面
-2. 添加请假流程添加附件（使用华为云OBS存储）
-3. 添加销假流程并使用
-4. 添加通知任务监听器
-5. 超时提醒-定时事件
-
-v2.1
-1. 修改已知BUG
-2. 添加审批未通过修改请假流程
-3. 修改act_workflow_formdata数据表字段
-
-
-
-v2.0
-
-1. activiti升级到7.1.0.M4
-2. ruoyi-vue升级到3.2.0
-3. 流程设计器更改为bpmn.js
-4. 添加请假部门领导审批，公司人事审批流程
-5. 使用动态表单构建
-
-
-v1.1
-1. 优化前端代码
-2. ruoyi-vue升级到3.1.0  详情请看ruoyi-vue官网
-
-v1.0
-
-1.  新增请假流程：请假会签，支持请假列表、新增暂存、编辑、删除；提交申请 (含选择会签参与人)、表单数据、我的待办 (申请详情、审批、调整申请、销假)、我的已办。
-2.  在线绘图部分界面汉化。
-3.  新增流程通用接口：审批历史和进度查看。
-4.  Activiti Modeler 完全汉化。
-5.  流程实例支持挂起和激活、撤销。
-6.  新增流程定义功能，支持流程定义部署、列表、删除和导出。
-7.  新增在线绘图功能，支持拖拽预览、在线绘图、下载 BPMN 文件和 SVG 文件。
-
-
-
-### 测试账号
-
-> 流程管理账号：admin / admin123
->
-> 请假流程测试账号
->
-> 普通员工1：guanxing / 123456
->
-> 普通员工2：zhoucang / 123456
->
-> 部门领导1：guanyu / 123456
->
-> 部门领导2：zhaoyun / 123456
->
-> 人事：zhugeliang / 123456
+* 提供了单应用版本[RuoYi-Vue-fast](https://github.com/yangzongzhuan/RuoYi-Vue-fast)，Oracle版本[RuoYi-Vue-Oracle](https://github.com/yangzongzhuan/RuoYi-Vue-Oracle)，保持同步更新。
+* 不分离版本，请移步[RuoYi](https://gitee.com/y_project/RuoYi)，微服务版本，请移步[RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud)
+* 特别鸣谢：[element](https://github.com/ElemeFE/element)，[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)，[eladmin-web](https://github.com/elunez/eladmin-web)。
+* 阿里云折扣场：[点我进入](http://aly.ruoyi.vip)，腾讯云秒杀场：[点我进入](http://txy.ruoyi.vip)&nbsp;&nbsp;
+* 阿里云优惠券：[点我领取](https://www.aliyun.com/minisite/goods?userCode=brki8iof&share_source=copy_link)，腾讯云优惠券：[点我领取](https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console)&nbsp;&nbsp;
 
 ## 内置功能
 
@@ -109,20 +30,23 @@ v1.0
 13. 代码生成：前后端代码的生成（java、html、xml、sql）支持CRUD下载 。
 14. 系统接口：根据业务代码自动生成相关的api接口文档。
 15. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
-16. 在线构建器：拖动表单元素生成相应的HTML代码。
-17. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
+16. 缓存监控：对系统的缓存信息查询，命令统计等。
+17. 在线构建器：拖动表单元素生成相应的HTML代码。
+18. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
 
 ## 在线体验
 
-- admin/admin123
+- admin/admin123  
+- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
 
-演示地址：https://demo.ruoyichina.com/login
+演示地址：http://vue.ruoyi.vip  
+文档地址：http://doc.ruoyi.vip
 
 ## 演示图
 
 <table>
     <tr>
-        <td><img src="http://www.ltdigit.cn/img/1600223031.jpg"/></td>
+        <td><img src="https://oscimg.oschina.net/oscnet/cd1f90be5f2684f4560c9519c0f2a232ee8.jpg"/></td>
         <td><img src="https://oscimg.oschina.net/oscnet/1cbcf0e6f257c7d3a063c0e3f2ff989e4b3.jpg"/></td>
     </tr>
     <tr>
@@ -151,12 +75,11 @@ v1.0
     </tr>
     <tr>
         <td><img src="https://oscimg.oschina.net/oscnet/b6115bc8c31de52951982e509930b20684a.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-6d73c2140ce694e3de4c05035fdc1868d4c.png"/></td>
+        <td><img src="https://oscimg.oschina.net/oscnet/up-5e4daac0bb59612c5038448acbcef235e3a.png"/></td>
     </tr>
-
 </table>
 
 
-## 若依前后端分离工作流交流群
+## 若依前后端分离交流群
 
-QQ群：  [![加入QQ群](https://img.shields.io/badge/815390100-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=nrV3xrlurpfJp-SNd1TrUr__S8AzgrPH&jump_from=webapi") 815390100 点击按钮入群。
+QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) 点击按钮入群。

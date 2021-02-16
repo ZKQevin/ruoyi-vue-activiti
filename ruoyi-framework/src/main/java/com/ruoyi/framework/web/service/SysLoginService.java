@@ -1,6 +1,10 @@
 package com.ruoyi.framework.web.service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import com.ruoyi.common.constant.RedisConstants;
+import com.ruoyi.common.utils.ip.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -44,9 +48,9 @@ public class SysLoginService
      * @param uuid 唯一标识
      * @return 结果
      */
-    public String login(String username, String password, String code, String uuid)
+    public String login(String username, String password, String code, String uuid, HttpServletRequest request)
     {
-        String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
+        String verifyKey = RedisConstants.CAPTCHA_CODE_KEY + uuid;
         String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
         if (captcha == null)
@@ -54,7 +58,7 @@ public class SysLoginService
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
             throw new CaptchaExpireException();
         }
-        if (!code.equalsIgnoreCase(captcha))
+        if (!(captcha.equalsIgnoreCase(code)||captcha.equals(Constants.GENERAL_CAPTCHA+uuid)))
         {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
             throw new CaptchaException();
@@ -83,6 +87,9 @@ public class SysLoginService
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         // 生成token
+        String ipAddr = IpUtils.getIpAddr(request);
+        redisCache.deleteObject(RedisConstants.CAPTCHA_LIMIT_IP_KEY + ipAddr);
+        redisCache.deleteObject(RedisConstants.LOGIN_ERRORS_NUM_KEY + ipAddr);
         return tokenService.createToken(loginUser);
     }
 }

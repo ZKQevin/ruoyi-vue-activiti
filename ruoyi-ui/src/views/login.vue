@@ -26,7 +26,7 @@
             <svg-icon slot="prefix" icon-class="password" v-bind:class="{'color-class':isPassword}" class="el-input__icon input-icon " />
           </el-input>
         </el-form-item>
-        <el-form-item prop="code">
+        <el-form-item prop="code" v-if="captcha">
           <el-input
             v-model="loginForm.code"
             auto-complete="off"
@@ -73,6 +73,7 @@
     name: "Login",
     data() {
       return {
+        captcha:false,
         isUsername:false,
         isPassword:false,
         isValidCode:false,
@@ -113,8 +114,11 @@
     methods: {
       getCode() {
         getCodeImg().then(res => {
-          this.codeUrl = "data:image/gif;base64," + res.img;
-          this.loginForm.uuid = res.uuid;
+          this.captcha=res.data.captcha;
+          if (this.captcha) {
+            this.codeUrl = "data:image/gif;base64," + res.data.img;
+          }
+          this.loginForm.uuid = res.data.uuid;
         });
       },
       getCookie() {

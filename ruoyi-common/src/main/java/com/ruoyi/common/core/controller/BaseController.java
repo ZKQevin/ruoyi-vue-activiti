@@ -2,9 +2,14 @@ package com.ruoyi.common.core.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import com.github.pagehelper.PageHelper;
@@ -58,6 +63,25 @@ public class BaseController
             PageHelper.startPage(pageNum, pageSize, orderBy);
         }
     }
+
+
+    /**
+     * 获取BO中的错误信息
+     * @param result
+     */
+    public Map<String, String> getErrors(BindingResult result) {
+        Map<String, String> map = new HashMap<>();
+        List<FieldError> errorList = result.getFieldErrors();
+        for (FieldError error : errorList) {
+            // 发送验证错误的时候所对应的某个属性
+            String field = error.getField();
+            // 验证的错误消息
+            String msg = error.getDefaultMessage();
+            map.put(field, msg);
+        }
+        return map;
+    }
+
 
     /**
      * 响应请求分页数据
